@@ -1,7 +1,8 @@
 <?php
 require_once 'init.php';
 
-
+use core\App;
+use core\Utils;
 //To do
 
 App::getRouter()->setDefaultRoute('homeShow'); // akcja/ścieżka domyślna
@@ -18,7 +19,7 @@ Utils::addRoute('logout',		'LoginControl');
 Utils::addRoute('itemNew',		'PriceListEditControl',	['admin']);
 Utils::addRoute('itemEdit',		'PriceListEditControl',	['admin']);
 Utils::addRoute('itemSave',		'PriceListEditControl',	['admin']);
-Utils::addRoute('itemDelete',            'PriceListEditControl',['admin']);
+Utils::addRoute('itemDelete',           'PriceListEditControl',['admin']);
 //schedule
 Utils::addRoute('clientNew',		'SchedulesEditControl',	['admin']);
 Utils::addRoute('clientEdit',		'SchedulesEditControl',	['admin']);

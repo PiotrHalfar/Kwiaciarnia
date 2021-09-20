@@ -5,7 +5,7 @@
  * - load config, messages, autoloader, router - prepare functions returning this global objects
  * - prepare functions loading smarty, twig, database and autoloader on demand (only once)
  * - load core functions, user roles from session and load action name to routing
-
+*/
 require_once 'core/Config.class.php';
 require_once 'core/App.class.php';
 
