@@ -49,37 +49,28 @@ class LoginControl {
     }
  
     public function action_login() 
-    {
-//           try {
-//                $connection = App::getDB()->select("logowanie","login","password",[
-//
-//                "login" => "admin" && "user", "password" => "admin" && "user"]);
-//               }catch (\PDOException $e){
-//				Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
-//				if (App::getConf()->debug) 
-//                                    Utils::addErrorMessage($e->getMessage());			
-//                 }  
-//            
-        if($this->validate()&&((trim($this->form->login == "admin")&& (trim($this->form->password == "admin")))||(trim($this->form->login == "user")&& (trim($this->form->password == "user")))))
+    {       
+        if($this->validate())
         {
-          try {		
-                                  $record = App::getDB()->get("logowanie", "*",[
-                                          "login" => $this->form->login,
-                                          "password" => $this->form->password,
-                                  ]); $this->role = $record['role'];
-                          } catch (\PDOException $e){
-                                  Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
-                                  if (App::getConf()->debug) 
-                                      Utils::addErrorMessage($e->getMessage());			
-                          }                      
-                          //nadanie roli z bazy danych
-                          RoleUtils::addRole($this->role);
-                          App::getRouter()->redirectTo("homeShow");
-                          }
-        else if(!empty(trim($this->form->login))&&(!empty(trim($this->form->password))))
-        {
-           Utils::addErrorMessage('Niepoprawne dane!');
-        } 
+            try {		
+                $role = App::getDB()->get("logowanie", "role",[
+                        "login" => $this->form->login,
+                        "password" => $this->form->password,
+                ]); $this->role = $role;
+            } catch (\PDOException $e){
+                    Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
+                    if (App::getConf()->debug) 
+                        Utils::addErrorMessage($e->getMessage());			
+            }       //sprawdza czy wczytano rekord, jesli pusty to wyswietl blad
+                    if (empty($role)) {
+                        Utils::addErrorMessage('Niepoprawne dane!');
+                    }
+                    //sprawdza czy wczytano rekord, jesli zawiera haslo to nadaj odpowiednia role z bazy
+                    else{
+                        RoleUtils::addRole($role);
+                        App::getRouter()->redirectTo("homeShow");
+                    }              
+        }
         $this->generateView();
     }
 
