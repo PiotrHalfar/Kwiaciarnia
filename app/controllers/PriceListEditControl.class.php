@@ -34,7 +34,9 @@ class PriceListEditControl {
 		}
 		if ( App::getMessages()->isError() ) 
                     return false;
-		
+		if (! is_numeric ( $this->form->price )) {
+                    Utils::addErrorMessage('Cena musi być liczbą!');
+			}
                 return !App::getMessages()->isError();
 		// 2. sprawdzenie poprawności przekazanych parametrów
 		

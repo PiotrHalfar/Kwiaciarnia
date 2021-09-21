@@ -1,108 +1,102 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-
     <meta charset="utf-8"/>
-	<title>Kwiaciarnia</title>
-	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-	<link rel="stylesheet" href="{$conf->app_url}/css/bootstrap.min.css">
-	<link rel="stylesheet" href="{$conf->app_url}/css/font-awesome.min.css">
-	<link rel="stylesheet" href="{$conf->app_url}/css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="{$conf->app_url}/css/main.css">
+    <title>Kwiaciarnia</title>
+    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="{$conf->app_url}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$conf->app_url}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{$conf->app_url}/css/bootstrap-theme.css" media="screen" >
+    <link rel="stylesheet" href="{$conf->app_url}/css/main.css">
 </head>
-
 <body>
-	<!-- Fixed navbar -->
-	<div class="navbar navbar-inverse navbar-static-top headroom" >
-		<div class="container">
-         
-				<ul class="nav navbar-nav pull-right">
-					<li><a href="{$conf->action_url}homeShow">Strona Główna</a></li>
-					<li><a href="{$conf->action_url}priceListShow">Cennik</a></li>
-                                        <li class="active"><a href="{$conf->action_url}schedulesShow">Terminarz</a></li>
-                                        <li><a href="{$conf->action_url}logout">Wyloguj</a></li>
-                                        
-				</ul>
-
-		</div>
-                                        
-	</div> 
-
+    <div class="navbar navbar-inverse navbar-static-top headroom" >
+        <div class="container">
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="{$conf->action_url}homeShow">Strona Główna</a></li>
+                <li><a href="{$conf->action_url}priceListShow">Cennik</a></li>
+                <li class="active"><a href="{$conf->action_url}schedulesShow">Terminarz</a></li>
+                {if count($conf->roles)>0}
+                <li><a href="{$conf->action_url}logout">Wyloguj</a></li>
+                {else}
+                <li><a href="{$conf->action_url}login">Zaloguj</a></li>
+                {/if}
+            </ul>
+        </div>                                   
+    </div> 
+    <div class="container">
 	<div class="bottom-margin">
-<form class="pure-form pure-form-stacked" action="{$conf->action_url}schedulesShow">
-	<legend>Opcje wyszukiwania</legend>
-	<fieldset>
-		<input type="text" placeholder="nazwisko" name="sf_surname" value="{$searchForm->surname}" /><br />
-		<button type="submit" class="pure-button pure-button-primary">Filtruj</button>
-	</fieldset>
-</form>
-                
-</div>	
-                
-                {if $msgs->isMessage()}
-<div class="messages bottom-margin">
-	<ul>
-	{foreach $msgs->getMessages() as $msg}
-	{strip}
-		<li class="msg {if $msg->isError()}error{/if} {if $msg->isWarning()}warning{/if} {if $msg->isInfo()}info{/if}">{$msg->text}</li>
-	{/strip}
-	{/foreach}
-	</ul>
-</div>
-{/if}
-                <div class="bottom-margin">
-<a class="pure-button button-success" href="{$conf->action_root}clientNew">+ Nowa osoba</a>
-</div>	
-
-        <table id="tab_people" class="pure-table pure-table-bordered">
+            <form action="{$conf->action_url}schedulesShow">
+                <header class="page-header">
+                    <h1 class="page-title">Terminarz</h1>
+                </header>
+                <fieldset>
+                    <div class="col-md-4">
+                        <label for="period">Wyszukaj klienta: </label>
+                        <input type="text" placeholder="nazwisko klienta" name="sf_surname" value="{$searchForm->surname}" /><br />
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-action btn-lg">Filtruj</button>
+                    </div>
+                </fieldset>
+            </form>      
+        </div>	        
+        {if $msgs->isMessage()}
+            <div class="messages bottom-margin">
+                <ul>
+                {foreach $msgs->getMessages() as $msg}
+                {strip}
+                        <li class="msg {if $msg->isError()}error{/if} {if $msg->isWarning()}warning{/if} {if $msg->isInfo()}info{/if}">{$msg->text}</li>
+                {/strip}
+                {/foreach}
+                </ul>
+            </div>
+        {/if}
+        <br>
+        <a class="btn btn-action btn-lg" href="{$conf->action_root}clientNew">Dodaj nowego klienta</a>
+        <br>
+        <br>
+        <table class="table">
             <thead>
-                    <tr>
-                            <th>imię</th>
-                            <th>nazwisko</th>
-                            <th>termin</th>
-                            <th>usługa</th>
-                            <th>opcje</th>
-                    </tr>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Termin</th>
+                    <th>Usługa</th>
+                    <th>Opcje</th>
+                </tr>
             </thead>
          <tbody>
-{foreach $clients as $p}
-{strip}
-	<tr>
-		<td>{$p["name"]}</td>
-		<td>{$p["surname"]}</td>
+        {foreach $clients as $p}
+        {strip}
+            <tr>
+                <td>{$p["name"]}</td>
+                <td>{$p["surname"]}</td>
                 <td>{$p["deadline"]}</td>
-		<td>{$p["service"]}</td>
-		<td>
-			<a class="button-small pure-button button-secondary" href="{$conf->action_url}clientEdit/{$p['clientid']}">Edytuj</a>
-&nbsp;
-			<a class="button-small pure-button button-warning" href="{$conf->action_url}clientDelete/{$p['clientid']}">Usuń</a>
-		</td>
-	</tr>
-{/strip}
-{/foreach}
-</tbody>
-</table>
-
-	 <footer id="footer">
+                <td>{$p["service"]}</td>
+                <td>
+                    <a class="btn btn-action btn-lg" href="{$conf->action_url}clientEdit/{$p['clientid']}">Edytuj</a>
+                    &nbsp;
+                    <a class="btn btn-action btn-lg" href="{$conf->action_url}clientDelete/{$p['clientid']}">Usuń</a>
+                </td>
+            </tr>
+        {/strip}
+        {/foreach}
+        </tbody>
+        </table>
+    </div>
+    <footer id="footer" class="top-space">
         <div class="footer2">
                 <div class="container">
-                        <div class="row">
-                                <div class="col-md-12 widget">
-                                        <div class="widget-body">
-                                                <p class="text-right">
-                                                        Copyright © 2021 Piotr Halfar
-                                                </p>
-                                        </div>
-                                </div>
-                        </div> 
+                    <div class="row">
+                        <div class="widget-body">
+                            <p class="text-right">
+                                Copyright 2021 | Piotr Halfar 
+                            </p>
+                        </div>
+                    </div> 
                 </div>
-        </div>
-    </footer>        
-		
-
-
-
-
-	
+            </div>
+    </footer>	
 </body>
 </html>

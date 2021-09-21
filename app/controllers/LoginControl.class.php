@@ -60,26 +60,27 @@ class LoginControl {
 //                                    Utils::addErrorMessage($e->getMessage());			
 //                 }  
 //            
-      if($this->validate()&&((trim($this->form->login == "admin")&& (trim($this->form->password == "admin")))||(trim($this->form->login == "user")&& (trim($this->form->password == "user")))))
-      {
-        try {		
-				$record = App::getDB()->get("logowanie", "*",[
-					"login" => $this->form->login,
-                                        "password" => $this->form->password,
-				]); $this->role = $record['role'];
-			} catch (\PDOException $e){
-				Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
-				if (App::getConf()->debug) 
-                                    Utils::addErrorMessage($e->getMessage());			
-			}                      
-                        //nadanie roli z bazy danych
-                        RoleUtils::addRole($this->role);
-                        App::getRouter()->redirectTo("homeShow");
-                        }
-       else {
-           Utils::addErrorMessage('złe dane');
-           $this->generateView();
-       }              
+        if($this->validate()&&((trim($this->form->login == "admin")&& (trim($this->form->password == "admin")))||(trim($this->form->login == "user")&& (trim($this->form->password == "user")))))
+        {
+          try {		
+                                  $record = App::getDB()->get("logowanie", "*",[
+                                          "login" => $this->form->login,
+                                          "password" => $this->form->password,
+                                  ]); $this->role = $record['role'];
+                          } catch (\PDOException $e){
+                                  Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
+                                  if (App::getConf()->debug) 
+                                      Utils::addErrorMessage($e->getMessage());			
+                          }                      
+                          //nadanie roli z bazy danych
+                          RoleUtils::addRole($this->role);
+                          App::getRouter()->redirectTo("homeShow");
+                          }
+        else if(!empty(trim($this->form->login))&&(!empty(trim($this->form->password))))
+        {
+           Utils::addErrorMessage('Niepoprawne dane!');
+        } 
+        $this->generateView();
     }
 
     public function action_logout() {
