@@ -3,6 +3,8 @@
 namespace app\forms;
 
 class LoginForm {
+        public $id;
 	public $login;
-	public $pass;
+	public $password;
+        public $role;
 } 

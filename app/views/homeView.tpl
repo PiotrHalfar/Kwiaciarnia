@@ -39,6 +39,8 @@
 				<p><a class="btn btn-action btn-lg" href="{$conf->action_url}priceListShow"">Cennik</a></p>
 			</div>
 		</div>
+                        
+                        
 	</header>
 
 	 <footer id="footer">

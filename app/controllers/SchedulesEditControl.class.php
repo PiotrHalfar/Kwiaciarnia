@@ -25,10 +25,7 @@ class SchedulesEditControl {
 		$this->form->surname = ParamUtils::getFromRequest('surname',true,'Błędne wywołanie aplikacji');
 		$this->form->deadline = ParamUtils::getFromRequest('deadline',true,'Błędne wywołanie aplikacji');
                 $this->form->service = ParamUtils::getFromRequest('service',true,'Błędne wywołanie aplikacji');
-                
-		if (App::getMessages()->isError())
-                        return false;
-                
+
 		// 1. sprawdzenie czy wartości wymagane nie są puste
 		if (empty(trim($this->form->name))) {
                         Utils::addErrorMessage('Wprowadź imię klienta');

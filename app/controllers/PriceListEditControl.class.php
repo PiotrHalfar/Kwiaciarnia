@@ -23,10 +23,7 @@ class PriceListEditControl {
 		$this->form->id = ParamUtils::getFromRequest('id',true,'Błędne wywołanie aplikacji');
 		$this->form->itemname = ParamUtils::getFromRequest('itemname',true,'Błędne wywołanie aplikacji');
 		$this->form->price = ParamUtils::getFromRequest('price',true,'Błędne wywołanie aplikacji');
-		
 
-		if ( App::getMessages()->isError() ) 
-                    return false;
 
 		// 1. sprawdzenie czy wartości wymagane nie są puste
 		if (empty(trim($this->form->itemname))) {

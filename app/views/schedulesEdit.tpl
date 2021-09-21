@@ -28,7 +28,6 @@
 </div>
     
     
-    
 {if $msgs->isMessage()}
 <div class="messages bottom-margin">
 	<ul>

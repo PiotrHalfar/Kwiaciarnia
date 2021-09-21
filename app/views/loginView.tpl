@@ -17,18 +17,19 @@
             <h1 class="lead">Logowanie do systemu</h1>
                 <fieldset>
                 <div class="col">
-                                <label for="id_login">login: </label>
-                                <input id="id_login" type="text" name="login"/>
+                                <label for="login">login: </label>
+                                <input id="login" type="text" name="login"/>
                         </div>
                 <div class="col">
-                                <label for="id_pass">hasło: </label>
-                                <input id="id_pass" type="password" name="pass" /><br />
+                                <label for="password">hasło: </label>
+                                <input id="password" type="password" name="password" /><br />
                         </div>
                     <br> 
                         <div class="col">
                                 <input type="submit" value="zaloguj" class="btn btn-action btn-lg"/>
                         </div>
                 </fieldset>
+            <input type="hidden" name="id" value="{$form->id}">
         </form>
         </header>
     </div>
@@ -36,28 +37,16 @@
     <div class="row">
 <div class="messages">
 
-{* wyświeltenie listy błędów, jeśli istnieją *}
-{if $msgs->isError()}
-	<h4>Wystąpiły błędy: </h4>
-	<ol class="err">
-	{foreach $msgs->getErrors() as $err}
+                {if $msgs->isMessage()}
+<div class="messages bottom-margin">
+	<ul>
+	{foreach $msgs->getMessages() as $msg}
 	{strip}
-		<li>{$err}</li>
+		<li class="msg {if $msg->isError()}error{/if} {if $msg->isWarning()}warning{/if} {if $msg->isInfo()}info{/if}">{$msg->text}</li>
 	{/strip}
 	{/foreach}
-	</ol>
-{/if}
-
-{* wyświeltenie listy informacji, jeśli istnieją *}
-{if $msgs->isInfo()}
-	<h4>Informacje: </h4>
-	<ol class="inf">
-	{foreach $msgs->getInfos() as $inf}
-	{strip}
-		<li>{$inf}</li>
-	{/strip}
-	{/foreach}
-	</ol>
+	</ul>
+</div>
 {/if}
 
 <br>  
