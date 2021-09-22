@@ -21,7 +21,12 @@ class SchedulesControl {
 		// 1. sprawdzenie, czy parametry zostały przekazane
 		// - nie trzeba sprawdzać
 		$this->form->surname = ParamUtils::getFromRequest('sf_surname');
-	
+                if (is_numeric($this->form->surname)) {
+                     Utils::addErrorMessage('Niepoprawne nazwisko klienta');
+                 }
+
+		if ( App::getMessages()->isError() ) 
+                    return false;
 		// 2. sprawdzenie poprawności przekazanych parametrów
 		// - nie trzeba sprawdzać
 		
@@ -33,44 +38,45 @@ class SchedulesControl {
 		// - W tej aplikacji walidacja nie jest potrzebna, ponieważ nie wystąpią błedy podczas podawania nazwiska.
 		//   Jednak pozostawiono ją, ponieważ gdyby uzytkownik wprowadzał np. datę, lub wartość numeryczną, to trzeba
 		//   odpowiednio zareagować wyświetlając odpowiednią informację (poprzez obiekt wiadomości Messages)
-		$this->validate();
-		
-		// 2. Przygotowanie mapy z parametrami wyszukiwania (nazwa_kolumny => wartość)
-		$search_params = []; //przygotowanie pustej struktury (aby była dostępna nawet gdy nie będzie zawierała wierszy)
-		if ( isset($this->form->surname) && strlen($this->form->surname) > 0) {
-			$search_params['surname[~]'] = $this->form->surname.'%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
-		}
-		
-		// 3. Pobranie listy rekordów z bazy danych
-		// W tym wypadku zawsze wyświetlamy listę osób bez względu na to, czy dane wprowadzone w formularzu wyszukiwania są poprawne.
-		// Dlatego pobranie nie jest uwarunkowane poprawnością walidacji (jak miało to miejsce w kalkulatorze)
-		 
-		//przygotowanie frazy where na wypadek większej liczby parametrów
-		$num_params = sizeof($search_params);
-		if ($num_params > 1) {
-			$where = [ "AND" => &$search_params ];
-		} else {
-			$where = &$search_params;
-		}
-		//dodanie frazy sortującej po nazwisku
-		$where ["ORDER"] = "surname";
-		//wykonanie zapytania
-		
-		try{
-			$this->records = App::getDB()->select("terminarz", [
-					"clientid",
-					"name",
-					"surname",
-					"deadline",
-                                        "service",
-                                        "delivery",
-				], $where );
-		} catch (\PDOException $e){
-			Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
-			if (App::getConf()->debug) 
-                            Utils::addErrorMessage($e->getMessage());			
-		}	
-		
+		if($this->validate())
+                {
+
+                    // 2. Przygotowanie mapy z parametrami wyszukiwania (nazwa_kolumny => wartość)
+                    $search_params = []; //przygotowanie pustej struktury (aby była dostępna nawet gdy nie będzie zawierała wierszy)
+                    if ( isset($this->form->surname) && strlen($this->form->surname) > 0) {
+                            $search_params['surname[~]'] = $this->form->surname.'%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
+                    }
+
+                    // 3. Pobranie listy rekordów z bazy danych
+                    // W tym wypadku zawsze wyświetlamy listę osób bez względu na to, czy dane wprowadzone w formularzu wyszukiwania są poprawne.
+                    // Dlatego pobranie nie jest uwarunkowane poprawnością walidacji (jak miało to miejsce w kalkulatorze)
+
+                    //przygotowanie frazy where na wypadek większej liczby parametrów
+                    $num_params = sizeof($search_params);
+                    if ($num_params > 1) {
+                            $where = [ "AND" => &$search_params ];
+                    } else {
+                            $where = &$search_params;
+                    }
+                    //dodanie frazy sortującej po nazwisku
+                    $where ["ORDER"] = "surname";
+                    //wykonanie zapytania
+
+                    try{
+                            $this->records = App::getDB()->select("terminarz", [
+                                            "clientid",
+                                            "name",
+                                            "surname",
+                                            "deadline",
+                                            "service",
+                                            "delivery",
+                                    ], $where );
+                    } catch (\PDOException $e){
+                            Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+                            if (App::getConf()->debug) 
+                                Utils::addErrorMessage($e->getMessage());			
+                    }	
+                }
 		// 4. wygeneruj widok
 		App::getSmarty()->assign('searchForm',$this->form); // dane formularza (wyszukiwania w tym wypadku)
 		App::getSmarty()->assign('clients',$this->records);  // lista rekordów z bazy danych

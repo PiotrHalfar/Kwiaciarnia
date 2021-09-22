@@ -14,12 +14,12 @@ Utils::addRoute('schedulesShow',	'SchedulesControl', ['admin']);
 //login
 Utils::addRoute('loginShow',            'LoginControl');
 Utils::addRoute('login',		'LoginControl');
-Utils::addRoute('logout',		'LoginControl');
+Utils::addRoute('logoutShow',		'LogoutControl');
 //pricelist
-Utils::addRoute('itemNew',		'PriceListEditControl',	['admin']);
-Utils::addRoute('itemEdit',		'PriceListEditControl',	['admin']);
-Utils::addRoute('itemSave',		'PriceListEditControl',	['admin']);
-Utils::addRoute('itemDelete',           'PriceListEditControl',['admin']);
+Utils::addRoute('itemNew',		'PriceListEditControl',	['user','admin']);
+Utils::addRoute('itemEdit',		'PriceListEditControl',	['user','admin']);
+Utils::addRoute('itemSave',		'PriceListEditControl',	['user','admin']);
+Utils::addRoute('itemDelete',           'PriceListEditControl',['user','admin']);
 //schedule
 Utils::addRoute('clientNew',		'SchedulesEditControl',	['admin']);
 Utils::addRoute('clientEdit',		'SchedulesEditControl',	['admin']);

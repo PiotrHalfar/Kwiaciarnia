@@ -27,7 +27,7 @@ class LoginControl {
 
         // sprawdzenie, czy potrzebne wartości zostały przekazane
         if (empty(trim($this->form->login))) {
-            Utils::addErrorMessage('Nie podano loginu');
+            Utils::addErrorMessage('Wprowadź login');
         }
        if (empty(trim($this->form->password))) {
             Utils::addErrorMessage('Wprowadź hasło');
@@ -72,13 +72,6 @@ class LoginControl {
                     }              
         }
         $this->generateView();
-    }
-
-    public function action_logout() {
-        // 1. zakończenie sesji
-        session_destroy();
-        // 2. idź na stronę główną - system automatycznie przekieruje do strony logowania
-        App::getRouter()->redirectTo('homeShow');
     }
 
     public function generateView() {

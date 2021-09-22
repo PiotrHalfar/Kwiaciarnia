@@ -1,7 +1,7 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8"/>
-    <title>Kalkulator Kredytowy</title>
+    <title>Kwiaciarnia</title>
     <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
     <link rel="stylesheet" href="{$conf->app_url}/css/bootstrap.min.css">
     <link rel="stylesheet" href="{$conf->app_url}/css/font-awesome.min.css">

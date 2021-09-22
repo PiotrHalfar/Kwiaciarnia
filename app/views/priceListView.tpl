@@ -25,7 +25,7 @@
                 <li><a href="{$conf->action_url}schedulesShow">Terminarz</a></li>
                 {/if}
                 {if count($conf->roles)>0}
-                <li><a href="{$conf->action_url}logout">Wyloguj</a></li>
+                <li><a href="{$conf->action_url}logoutShow">Wyloguj</a></li>
                 {else}
                 <li><a href="{$conf->action_url}login">Zaloguj</a></li>
                 {/if}
@@ -62,7 +62,7 @@
         {/if}
                 
         <br>       
-        {if \core\RoleUtils::inRole("admin")}
+        {if count($conf->roles)>0}
         <a class="btn btn-action btn-lg" href="{$conf->action_root}itemNew">Dodaj nowy przedmiot</a>
         {/if}
         <br>
@@ -72,7 +72,7 @@
                     <tr>   
                         <th style="text-align:center">Produkt</th>
                         <th style="text-align:center">Cena</th>
-                        {if \core\RoleUtils::inRole("admin")}
+                        {if count($conf->roles)>0}
                         <th style="text-align:center">Opcje</th>
                         {/if}
                     </tr>
@@ -83,7 +83,7 @@
                     <tr>
                         <td>{$p["itemname"]}</td>
                         <td>{$p["price"]} zł</td>
-                        {if \core\RoleUtils::inRole("admin")}
+                        {if count($conf->roles)>0}
                         <td>
                             <a class="btn btn-action" href="{$conf->action_url}itemEdit/{$p['itemid']}">Edytuj</a>
                             &nbsp;

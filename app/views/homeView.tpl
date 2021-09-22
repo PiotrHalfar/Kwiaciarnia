@@ -27,7 +27,7 @@
                 <li><a href="{$conf->action_url}schedulesShow">Terminarz</a></li>
                 {/if}
                 {if count($conf->roles)>0}
-                <li><a href="{$conf->action_url}logout">Wyloguj</a></li>
+                <li><a href="{$conf->action_url}logoutShow">Wyloguj</a></li>
                 {else}
                 <li><a href="{$conf->action_url}login">Zaloguj</a></li>
                 {/if}
