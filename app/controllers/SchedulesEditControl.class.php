@@ -25,20 +25,36 @@ class SchedulesEditControl {
 		$this->form->surname = ParamUtils::getFromRequest('surname',true,'Błędne wywołanie aplikacji');
 		$this->form->deadline = ParamUtils::getFromRequest('deadline',true,'Błędne wywołanie aplikacji');
                 $this->form->service = ParamUtils::getFromRequest('service',true,'Błędne wywołanie aplikacji');
+                $this->form->delivery = ParamUtils::getFromRequest('delivery',true,'Błędne wywołanie aplikacji');
 
-		// 1. sprawdzenie czy wartości wymagane nie są puste
+		// 1. sprawdzenie czy wartości wymagane nie są puste oraz sprawdzenie czy nie sa liczba
 		if (empty(trim($this->form->name))) {
                         Utils::addErrorMessage('Wprowadź imię klienta');
 		}
+                if (is_numeric ( $this->form->name )) {
+                    Utils::addErrorMessage('Błędne imię klienta!');
+			}
 		if (empty(trim($this->form->surname))) {
 			Utils::addErrorMessage('Wprowadź nazwisko klienta');
 		}
+                if (is_numeric ( $this->form->surname )) {
+                    Utils::addErrorMessage('Błędne nazwisko klienta!');
+			}
                 if (empty(trim($this->form->deadline))) {
 			Utils::addErrorMessage('Wprowadź termin odbioru');
 		}
                 if (empty(trim($this->form->service))) {
 			Utils::addErrorMessage('Wprowadź rodzaj usługi');
 		}
+                if (is_numeric ( $this->form->service )) {
+                    Utils::addErrorMessage('Błędny rodzaj usługi!');
+			}
+                 if (empty(trim($this->form->delivery))) {
+			Utils::addErrorMessage('Wprowadź rodzaj dostawy');
+		}
+                if (is_numeric ( $this->form->delivery )) {
+                    Utils::addErrorMessage('Błędny rodzaj dostawy!');
+			}        
 		if (App::getMessages()->isError())
                         return false;
 		// 2. sprawdzenie poprawności przekazanych parametrów
@@ -46,7 +62,6 @@ class SchedulesEditControl {
                 if ($d === false) {
                     Utils::addErrorMessage('Zły format daty. Przykład: 2015-12-20');
                 }
-
                 return !App::getMessages()->isError();
 	}
 
@@ -76,13 +91,13 @@ class SchedulesEditControl {
 				$this->form->surname = $record['surname'];
                                 $this->form->deadline = $record['deadline'];
                                 $this->form->service = $record['service'];
+                                $this->form->delivery = $record['delivery'];
 			} catch (\PDOException $e){
 				Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
 				if (App::getConf()->debug) 
                                     Utils::addErrorMessage($e->getMessage());			
 			}	
 		} 
-		
 		// 3. Wygenerowanie widoku
 		$this->generateView();		
 	}
@@ -123,6 +138,7 @@ class SchedulesEditControl {
 							"surname" => $this->form->surname,
                                                         "deadline" => $this->form->deadline,
                                                         "service" => $this->form->service,
+                                                        "delivery" => $this->form->delivery,
 						]);
 					} else { //za dużo rekordów
 						// Gdy za dużo rekordów to pozostań na stronie
@@ -137,6 +153,7 @@ class SchedulesEditControl {
                                                 "surname" => $this->form->surname,
                                                 "deadline" => $this->form->deadline,
                                                 "service" => $this->form->service,
+                                                "delivery" => $this->form->delivery,
 					], [ 
 						"clientid" => $this->form->id
 					]);

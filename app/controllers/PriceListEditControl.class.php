@@ -29,6 +29,9 @@ class PriceListEditControl {
 		if (empty(trim($this->form->itemname))) {
                     Utils::addErrorMessage('Wprowadź nazwę produktu');
 		}
+                if (is_numeric ( $this->form->itemname )) {
+                    Utils::addErrorMessage('Błędna nazwa produktu!');
+			}
 		if (empty(trim($this->form->price))) {
                     Utils::addErrorMessage('Wprowadź cenę');
 		}

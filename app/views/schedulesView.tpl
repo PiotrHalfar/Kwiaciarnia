@@ -12,7 +12,13 @@
 <body>
     <div class="navbar navbar-inverse navbar-static-top headroom" >
         <div class="container">
+            <div class="navbar-header">
+				<a href="{$conf->action_url}homeShow">
+                                <img src="{$conf->app_url}/assets/images/KwiaciarniaLogo.png" alt="Kwiaciarnia Rybnik">
+                                </a>
+			</div>
             <ul class="nav navbar-nav pull-right">
+                <br>
                 <li><a href="{$conf->action_url}homeShow">Strona Główna</a></li>
                 <li><a href="{$conf->action_url}priceListShow">Cennik</a></li>
                 <li class="active"><a href="{$conf->action_url}schedulesShow">Terminarz</a></li>
@@ -25,22 +31,22 @@
         </div>                                   
     </div> 
     <div class="container">
-	<div class="bottom-margin">
+	<div>
             <form action="{$conf->action_url}schedulesShow">
                 <header class="page-header">
                     <h1 class="page-title">Terminarz</h1>
                 </header>
                 <fieldset>
-                    <div class="col-md-4">
+                    <div class="col">
                         <label for="period">Wyszukaj klienta: </label>
-                        <input type="text" placeholder="nazwisko klienta" name="sf_surname" value="{$searchForm->surname}" /><br />
-                    </div>
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-action btn-lg">Filtruj</button>
-                    </div>
+                        <input type="text" placeholder="nazwisko klienta" name="sf_surname" value="{$searchForm->surname}" />
+                        &nbsp;
+                        <button type="submit" class="btn btn-action">Filtruj</button>
+                    </div>      
                 </fieldset>
             </form>      
         </div>	        
+        <br>
         {if $msgs->isMessage()}
             <div class="messages bottom-margin">
                 <ul>
@@ -56,14 +62,15 @@
         <a class="btn btn-action btn-lg" href="{$conf->action_root}clientNew">Dodaj nowego klienta</a>
         <br>
         <br>
-        <table class="table">
+        <table class="table" style="text-align:center">
             <thead>
                 <tr>
-                    <th>Imię</th>
-                    <th>Nazwisko</th>
-                    <th>Termin</th>
-                    <th>Usługa</th>
-                    <th>Opcje</th>
+                    <th style="text-align:center">Imię</th>
+                    <th style="text-align:center">Nazwisko</th>
+                    <th style="text-align:center">Termin</th>
+                    <th style="text-align:center">Usługa</th>
+                    <th style="text-align:center">Dostawa</th>
+                    <th style="text-align:center">Opcje</th>
                 </tr>
             </thead>
          <tbody>
@@ -74,10 +81,11 @@
                 <td>{$p["surname"]}</td>
                 <td>{$p["deadline"]}</td>
                 <td>{$p["service"]}</td>
+                <td>{$p["delivery"]}</td>
                 <td>
-                    <a class="btn btn-action btn-lg" href="{$conf->action_url}clientEdit/{$p['clientid']}">Edytuj</a>
+                    <a class="btn btn-action" href="{$conf->action_url}clientEdit/{$p['clientid']}">Edytuj</a>
                     &nbsp;
-                    <a class="btn btn-action btn-lg" href="{$conf->action_url}clientDelete/{$p['clientid']}">Usuń</a>
+                    <a class="btn btn-action" href="{$conf->action_url}clientDelete/{$p['clientid']}">Usuń</a>
                 </td>
             </tr>
         {/strip}

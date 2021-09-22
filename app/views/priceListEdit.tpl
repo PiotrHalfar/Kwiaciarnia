@@ -12,7 +12,13 @@
 <body>
     <div class="navbar navbar-inverse navbar-static-top headroom" >
         <div class="container">
+            <div class="navbar-header">
+				<a href="{$conf->action_url}homeShow">
+                                <img src="{$conf->app_url}/assets/images/KwiaciarniaLogo.png" alt="Kwiaciarnia Rybnik">
+                                </a>
+			</div>
             <ul class="nav navbar-nav pull-right">
+                <br>
                 <li><a href="{$conf->action_url}homeShow">Strona Główna</a></li>
                 <li class="active"><a href="{$conf->action_url}priceListShow">Cennik</a></li>
                 {if \core\RoleUtils::inRole("admin")}
@@ -27,19 +33,19 @@
         </div>
     </div>
     <div class="container">
-        <div class="bottom-margin">
+        <div>
             <form action="{$conf->action_root}itemSave" method="post">
                 <header class="page-header">
                     <h1 class="page-title">Dane produktu</h1>
                 </header>
                 <fieldset>
                     <div class="col">
-                        <label for="itemname">produkt</label>
-                        <input id="itemname" type="text" placeholder="produkt" name="itemname" value="{$form->itemname}">
+                        <label for="itemname">Produkt</label><br>
+                        <input style="text-align:center" id="itemname" type="text" placeholder=" nazwa produktu" name="itemname" value="{$form->itemname}"><br><br>
                     </div>
                     <div class="col">
-                        <label for="price">cena</label>
-                        <input id="price" type="text" placeholder="cena" name="price" value="{$form->price}">
+                        <label for="price">Cena</label><br>
+                        <input style="text-align:center" id="price" type="text" placeholder="cena produktu" name="price" value="{$form->price}"><br><br>
                     </div>
                     <br>
                     <div class="pure-controls">
@@ -64,17 +70,5 @@
         </div>
     {/if}
     </div>
-    <footer id="footer" class="top-space">
-        <div class="footer2">
-                <div class="container">
-                    <div class="row">
-                        <div class="widget-body">
-                            <p class="text-right">
-                                Copyright 2021 | Piotr Halfar 
-                            </p>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-    </footer>	
+
 </body>

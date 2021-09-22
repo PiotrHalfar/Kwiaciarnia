@@ -63,6 +63,7 @@ class SchedulesControl {
 					"surname",
 					"deadline",
                                         "service",
+                                        "delivery",
 				], $where );
 		} catch (\PDOException $e){
 			Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');

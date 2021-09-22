@@ -12,7 +12,13 @@
 <body>
     <div class="navbar navbar-inverse navbar-static-top headroom" >
         <div class="container">
+            <div class="navbar-header">
+				<a href="{$conf->action_url}homeShow">
+                                <img src="{$conf->app_url}/assets/images/KwiaciarniaLogo.png" alt="Kwiaciarnia Rybnik">
+                                </a>
+			</div>
             <ul class="nav navbar-nav pull-right">
+                <br>
                 <li><a href="{$conf->action_url}homeShow">Strona Główna</a></li>
                 <li class="active"><a href="{$conf->action_url}priceListShow">Cennik</a></li>
                 {if \core\RoleUtils::inRole("admin")}
@@ -27,23 +33,22 @@
         </div>
     </div> 
     <div class="container">
-	<div class="bottom-margin">
+	<div>
             <form action="{$conf->action_url}priceListShow">
                 <header class="page-header">
                     <h1 class="page-title">Cennik</h1>
                 </header>
                 <fieldset>
-                    <div class="col-md-4">
+                    <div class="col">
                         <label for="period">Wyszukaj produkt: </label>
-                        <input type="text" placeholder="nazwa produktu" name="sf_itemname" value="{$searchForm->itemname}" />
-
-                    </div>
-                    <div class="col-md-4">
-                         <button type="submit" class="btn btn-action btn-lg">Filtruj</button>
+                        <input style="text-align:center" type="text" placeholder="nazwa produktu" name="sf_itemname" value="{$searchForm->itemname}" />
+                        &nbsp;
+                        <button type="submit" class="btn btn-action">Filtruj</button>
                     </div>
                 </fieldset>
             </form>      
         </div>	
+        <br>
        {if $msgs->isMessage()}
             <div class="messages bottom-margin">
                 <ul>
@@ -57,15 +62,19 @@
         {/if}
                 
         <br>       
+        {if \core\RoleUtils::inRole("admin")}
         <a class="btn btn-action btn-lg" href="{$conf->action_root}itemNew">Dodaj nowy przedmiot</a>
+        {/if}
         <br>
         <br>
-        <table class="table">
+        <table class="table " style="text-align:center">
             <thead>
                     <tr>   
-                        <th>Produkt</th>
-                        <th>Cena</th>
-                        <th>Opcje</th>
+                        <th style="text-align:center">Produkt</th>
+                        <th style="text-align:center">Cena</th>
+                        {if \core\RoleUtils::inRole("admin")}
+                        <th style="text-align:center">Opcje</th>
+                        {/if}
                     </tr>
             </thead>
             <tbody>
@@ -73,12 +82,14 @@
                 {strip}
                     <tr>
                         <td>{$p["itemname"]}</td>
-                        <td>{$p["price"]}</td>
+                        <td>{$p["price"]} zł</td>
+                        {if \core\RoleUtils::inRole("admin")}
                         <td>
-                            <a class="btn btn-action btn-lg" href="{$conf->action_url}itemEdit/{$p['itemid']}">Edytuj</a>
+                            <a class="btn btn-action" href="{$conf->action_url}itemEdit/{$p['itemid']}">Edytuj</a>
                             &nbsp;
-                            <a class="btn btn-action btn-lg" href="{$conf->action_url}itemDelete/{$p['itemid']}">Usuń</a>
+                            <a class="btn btn-action" href="{$conf->action_url}itemDelete/{$p['itemid']}">Usuń</a>
                         </td>
+                        {/if}
                     </tr>
                 {/strip}
                 {/foreach}

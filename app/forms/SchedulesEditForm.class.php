@@ -8,4 +8,5 @@ class SchedulesEditForm {
 	public $surname;
         public $deadline;
         public $service;
+        public $delivery;
 }
