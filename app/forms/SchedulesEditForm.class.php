@@ -2,7 +2,8 @@
 
 namespace app\forms;
 
-class SchedulesEditForm {
+class SchedulesEditForm 
+{
         public $id;
 	public $name;
 	public $surname;

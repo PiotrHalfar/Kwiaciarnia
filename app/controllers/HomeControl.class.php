@@ -6,15 +6,16 @@ namespace app\controllers;
 
 use core\App;
 
-class HomeControl{
+class HomeControl
+{
     
-        public function action_homeShow(){
+        public function action_homeShow()
+        {
 		$this->generateView();
 	}
 	public function generateView()
-       {        
- 
+        {        
             App::getSmarty()->display('homeView.tpl');
-       }
+        }
 			
 }

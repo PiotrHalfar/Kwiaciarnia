@@ -2,7 +2,8 @@
 
 namespace app\forms;
 
-class PriceListEditForm {
+class PriceListEditForm 
+{
 	public $id;
 	public $itemname;
 	public $price;

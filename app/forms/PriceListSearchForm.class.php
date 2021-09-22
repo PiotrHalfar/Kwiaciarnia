@@ -2,6 +2,7 @@
 
 namespace app\forms;
 
-class PriceListSearchForm {
+class PriceListSearchForm 
+{
 	public $itemname;
 } 

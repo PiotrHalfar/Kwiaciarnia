@@ -24,7 +24,7 @@
                 {if \core\RoleUtils::inRole("admin")}
                 <li><a href="{$conf->action_url}schedulesShow">Terminarz</a></li>
                 {/if}
-                {if count($conf->roles)>0}
+                {if \core\RoleUtils::inRole("admin")||\core\RoleUtils::inRole("user")}
                 <li><a href="{$conf->action_url}logoutShow">Wyloguj</a></li>
                 {else}
                 <li><a href="{$conf->action_url}login">Zaloguj</a></li>

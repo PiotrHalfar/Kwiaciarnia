@@ -7,24 +7,28 @@ use core\Utils;
 use core\ParamUtils;
 use app\forms\PriceListSearchForm;
 
-class PriceListControl {
+class PriceListControl 
+{
 
 	private $form; //dane formularza wyszukiwania
 	private $records; //rekordy pobrane z bazy danych
 
-	public function __construct(){
+	public function __construct()
+        {
 		//stworzenie potrzebnych obiektów
 		$this->form = new PriceListSearchForm();
 	}
 		
-	public function validate() {
+	public function validate() 
+        {
 		// 1. sprawdzenie, czy parametry zostały przekazane
 		// - nie trzeba sprawdzać
 		$this->form->itemname = ParamUtils::getFromRequest('sf_itemname');
                 
-                if (is_numeric($this->form->itemname)) {
-                     Utils::addErrorMessage('Niepoprawna nazwa produktu');
-                 }
+                if (is_numeric($this->form->itemname)) 
+                {
+                    Utils::addErrorMessage('Niepoprawna nazwa produktu');
+                }
 
 		if ( App::getMessages()->isError() ) 
                     return false;
@@ -51,7 +55,8 @@ class PriceListControl {
 
                     //przygotowanie frazy where na wypadek większej liczby parametrów
                     $num_params = sizeof($search_params);
-                    if ($num_params > 1) {
+                    if ($num_params > 1) 
+                    {
                             $where = [ "AND" => &$search_params ];
                     } else {
                             $where = &$search_params;

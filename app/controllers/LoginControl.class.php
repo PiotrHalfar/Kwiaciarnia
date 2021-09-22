@@ -8,43 +8,43 @@ use core\RoleUtils;
 use core\ParamUtils;
 use app\forms\LoginForm;
 
-class LoginControl {
-
+class LoginControl 
+{
     private $form;
-
-    public function __construct() {
-        //stworzenie potrzebnych obiektów
+    
+    public function __construct() 
+    {
+        //stworzenie obiektów
         $this->form = new LoginForm();
     }
 
-   public function validate() {
+    public function validate() 
+    {
         $this->form->login = ParamUtils::getFromRequest('login');
         $this->form->password = ParamUtils::getFromRequest('password');
 
-        //nie ma sensu walidować dalej, gdy brak parametrów
         if (!isset($this->form->login))
             return false;
 
         // sprawdzenie, czy potrzebne wartości zostały przekazane
-        if (empty(trim($this->form->login))) {
+        if (empty(trim($this->form->login))) 
+        {
             Utils::addErrorMessage('Wprowadź login');
         }
-       if (empty(trim($this->form->password))) {
+        if (empty(trim($this->form->password))) 
+        {
             Utils::addErrorMessage('Wprowadź hasło');
         }
 
-        //nie ma sensu walidować dalej, gdy brak wartości
         if (App::getMessages()->isError())
             return false;
 
-        // sprawdzenie, czy dane logowania poprawne
-        // (takie informacje najczęściej przechowuje się w bazie danych)
-      
-
+  
         return !App::getMessages()->isError();
     }
    
-    public function action_loginShow() {
+    public function action_loginShow() 
+    {
         $this->generateView();
     }
  
@@ -52,21 +52,25 @@ class LoginControl {
     {       
         if($this->validate())
         {
-            try {		
+            try 
+            {		
                 $role = App::getDB()->get("logowanie", "role",[
                         "login" => $this->form->login,
                         "password" => $this->form->password,
                 ]); $this->role = $role;
-            } catch (\PDOException $e){
+            } catch (\PDOException $e)
+            {
                     Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
                     if (App::getConf()->debug) 
                         Utils::addErrorMessage($e->getMessage());			
             }       //sprawdza czy wczytano rekord, jesli pusty to wyswietl blad
-                    if (empty($role)) {
+                    if (empty($role)) 
+                    {
                         Utils::addErrorMessage('Niepoprawne dane!');
                     }
                     //sprawdza czy wczytano rekord, jesli zawiera haslo to nadaj odpowiednia role z bazy
-                    else{
+                    else
+                    {
                         RoleUtils::addRole($role);
                         App::getRouter()->redirectTo("homeShow");
                     }              
@@ -74,9 +78,10 @@ class LoginControl {
         $this->generateView();
     }
 
-    public function generateView() {
+    public function generateView() 
+    {
         App::getSmarty()->assign('form', $this->form); // dane formularza do widoku
         App::getSmarty()->display('loginView.tpl');
     }
-
+    
 }

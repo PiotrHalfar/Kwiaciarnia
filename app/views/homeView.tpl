@@ -61,9 +61,6 @@
 							</p>	
 						</div>
 					</div>
-
-					
-
 					<div class="col-md-4 widget container text-right">	
                                             <h3 class="widget-title">Oferujemy</h3>
 						<div class="widget-body">
@@ -71,9 +68,7 @@
                                                         <p>U nas zapłacisz kartą.</p>
                                                 </div>
 					</div>
-
-				</div> <!-- /row of widgets -->
-                                
+				</div>                                
 			</div>
 		</div>
         

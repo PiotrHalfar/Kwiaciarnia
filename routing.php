@@ -3,7 +3,6 @@ require_once 'init.php';
 
 use core\App;
 use core\Utils;
-//To do
 
 App::getRouter()->setDefaultRoute('homeShow'); // akcja/ścieżka domyślna
 App::getRouter()->setLoginRoute('login'); // akcja/ścieżka na potrzeby logowania (przekierowanie, gdy nie ma dostępu)

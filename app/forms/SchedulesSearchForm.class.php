@@ -2,6 +2,7 @@
 
 namespace app\forms;
 
-class SchedulesSearchForm {
+class SchedulesSearchForm 
+{
         public $surname;
 }
