@@ -32,7 +32,7 @@
             </ul>
         </div>
     </div> 
-    <div class="container">
+    <div  class="container text-center">
 	<div>
             <form action="{$conf->action_url}priceListShow">
                 <header class="page-header">
@@ -48,8 +48,9 @@
                 </fieldset>
             </form>      
         </div>	
-        <br>
+                        
        {if $msgs->isMessage()}
+           <br>
             <div class="messages bottom-margin">
                 <ul>
                 {foreach $msgs->getMessages() as $msg}
@@ -63,11 +64,12 @@
                 
         <br>       
         {if count($conf->roles)>0}
-        <a class="btn btn-action btn-lg" href="{$conf->action_root}itemNew">Dodaj nowy przedmiot</a>
+        <a align="center" class="btn btn-action btn-lg" href="{$conf->action_root}itemNew">Dodaj nowy przedmiot</a>
         {/if}
         <br>
         <br>
-        <table class="table table-bordered table-hover" style="text-align:center">
+      
+        <table align="center" class="table table-bordered table-hover" style="text-align: center; width:60%">              
             <thead>
                     <tr>   
                         <th style="text-align:center">Produkt</th>

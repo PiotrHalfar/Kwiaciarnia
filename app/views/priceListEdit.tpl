@@ -32,7 +32,7 @@
             </ul>
         </div>
     </div>
-    <div class="container">
+    <div class="container text-center">
         <div>
             <form action="{$conf->action_root}itemSave" method="post">
                 <header class="page-header">

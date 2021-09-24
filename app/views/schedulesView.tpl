@@ -30,7 +30,7 @@
             </ul>
         </div>                                   
     </div> 
-    <div class="container">
+    <div align="center" class="container">
 	<div>
             <form action="{$conf->action_url}schedulesShow">
                 <header class="page-header">
@@ -46,8 +46,8 @@
                 </fieldset>
             </form>      
         </div>	        
-        <br>
         {if $msgs->isMessage()}
+            <br>
             <div class="messages bottom-margin">
                 <ul>
                 {foreach $msgs->getMessages() as $msg}
@@ -59,7 +59,9 @@
             </div>
         {/if}
         <br>
+ 
         <a class="btn btn-action btn-lg" href="{$conf->action_root}clientNew">Dodaj nowego klienta</a>
+
         <br>
         <br>
         <table class="table table-bordered table-hover" style="text-align:center">

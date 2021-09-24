@@ -33,7 +33,7 @@
                 <br><br>
                 <br><br>
                 <div class="row">
-                    <p>Pomyślnie wylogowano z systemu</p>
+                    <h2>Pomyślnie wylogowano z systemu</h2>
                     <p><a class="btn btn-action" href="{$conf->action_url}homeShow">Powrót do strony głównej</a></p>
                 </div>
             </div>
