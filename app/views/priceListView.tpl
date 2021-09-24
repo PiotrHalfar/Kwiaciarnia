@@ -67,7 +67,7 @@
         {/if}
         <br>
         <br>
-        <table class="table " style="text-align:center">
+        <table class="table table-bordered table-hover" style="text-align:center">
             <thead>
                     <tr>   
                         <th style="text-align:center">Produkt</th>

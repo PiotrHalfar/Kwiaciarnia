@@ -39,7 +39,7 @@
                 <fieldset>
                     <div class="col">
                         <label for="period">Wyszukaj klienta: </label>
-                        <input type="text" placeholder="nazwisko klienta" name="sf_surname" value="{$searchForm->surname}" />
+                        <input style="text-align:center" type="text" placeholder="nazwisko klienta" name="sf_surname" value="{$searchForm->surname}" />
                         &nbsp;
                         <button type="submit" class="btn btn-action">Filtruj</button>
                     </div>      
@@ -62,7 +62,7 @@
         <a class="btn btn-action btn-lg" href="{$conf->action_root}clientNew">Dodaj nowego klienta</a>
         <br>
         <br>
-        <table class="table" style="text-align:center">
+        <table class="table table-bordered table-hover" style="text-align:center">
             <thead>
                 <tr>
                     <th style="text-align:center">Imię</th>
